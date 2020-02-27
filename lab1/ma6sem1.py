@@ -10,6 +10,6 @@ data = list(map(lambda x: float(x), file_content.replace('\n', ' ').replace(',',
 # Hist
 num_bins = 20
 n, bins, patches = plt.hist(data, num_bins, facecolor='blue', alpha=0.5)
-# plt.show()
+plt.show()
 
 print(sorted(data))
