@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
+import scipy
 import scipy.stats as scs
 
 with open('input.txt', 'r') as f:
@@ -37,8 +38,12 @@ def box_with_mustache(arr):
     plt.show()
 
 
-def avdeviation(arr):
-    return np.mean(arr)
+def stdev(nums):
+    diffs = 0
+    avg = sum(nums)/len(nums)
+    for n in nums:
+        diffs += (n - avg)**(2)
+    return (diffs/(len(nums)-1))**(0.5)
 
 
 def kurtosis(arr):
@@ -46,7 +51,12 @@ def kurtosis(arr):
 
 
 def assymetry(arr):
-    return average(arr) * mode(arr) / avdeviation(arr)
+    moment3 = 0
+    avg = sum(arr) / len(arr)
+    for i in arr:
+        moment3 += (i - avg) ** 3
+    moment3 /= len(arr)
+    return moment3 ** 3 / stdev(arr) ** 3
 
 
 print('Среднее значение выборки', average(data))
@@ -54,10 +64,11 @@ print('Выборочная дисперсия', vardis(data))
 print('Стандартная ошибка', deferr(data))
 print('Мода', mode(data))
 print('Медиана', median(data))
-print('Квартили', quantile(data))
-print('Среднее отклонение', avdeviation(data))
+print('Квантили', quantile(data))
+print('Стандартное отклонение', stdev(data))
 print('Эксцесс', kurtosis(data))
 print('Минимум', min(data))
 print('Максимум', max(data))
 print('Ассиметрия', assymetry(data))
+print(len(data))
 box_with_mustache(data)  # 'Усатый ящик' https://habr.com/ru/post/267123/
