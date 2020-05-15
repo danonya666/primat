@@ -40,14 +40,23 @@ def box_with_mustache(arr):
 
 def stdev(nums):
     diffs = 0
-    avg = sum(nums)/len(nums)
+    avg = sum(nums) / len(nums)
     for n in nums:
-        diffs += (n - avg)**(2)
-    return (diffs/(len(nums)-1))**(0.5)
+        diffs += (n - avg) ** (2)
+    return (diffs / (len(nums) - 1)) ** (0.5)
 
 
 def kurtosis(arr):
     return scs.kurtosis(arr)
+
+
+def mn(arr, n): # Центральный эмпирический момент n-го порядка
+    result = 0
+    av = average(data)
+    for x in arr:
+        result += (x - av) ** n
+    result /= len(arr)
+    return result
 
 
 def assymetry(arr):
@@ -71,4 +80,6 @@ print('Минимум', min(data))
 print('Максимум', max(data))
 print('Ассиметрия', assymetry(data))
 print(len(data))
+print('m4', mn(data, 4))
+print('m3', mn(data, 3))
 box_with_mustache(data)  # 'Усатый ящик' https://habr.com/ru/post/267123/

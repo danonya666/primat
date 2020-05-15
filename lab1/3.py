@@ -1,4 +1,5 @@
 from scipy import stats
+
 with open('input.txt', 'r') as f:
     file_content = f.read()
 

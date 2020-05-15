@@ -20,7 +20,7 @@ def mean_confidence_interval(arr, confidence=0.95):  # по мат ожидан�
     n = len(a)
     m, se = np.mean(a), scipy.stats.sem(a)  # среднее арифметическое, standard error of the mean
     h = se * scipy.stats.t.ppf((1 + confidence) / 2., n - 1)  # ppf - quantile function p(n <= x)
-    return m, m - h, m + h
+    return m - h, m + h
 
 
 def standard_deviation_confidence_interval(arr, confidence=0.95):
