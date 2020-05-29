@@ -3,7 +3,7 @@ from random import shuffle
 import telebot
 from telebot import types
 
-from app import classifier, settings
+from app import classifier, converter, settings
 
 from . import replies
 
@@ -36,7 +36,8 @@ def recognize_object(message: types.Message) -> None:
     if settings.STAGE == 'dev':
         save_picture(picture)
 
-    predictions = classifier.predict_class(picture)
+    image = converter.convert_image(picture)
+    predictions = classifier.predict_class(image)
     classes = sorted(predictions.items(), key=lambda item: item[1], reverse=True)
     prediction = classes[0][0]
     print("The prediction is %s" % prediction)
