@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+    image: image-classifier
+    volumes:
+      - '.:/srv/app'
+    ports:
+      - '5000:5000'
+    restart: unless-stopped
+    env_file:
+      - variables.env
