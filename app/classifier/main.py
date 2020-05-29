@@ -5,6 +5,7 @@ import tensorflow as tf
 from tensorflow import keras
 
 from app import settings
+from app.settings import MODEL_FILENAME
 
 
 class SimpleClassifier:
@@ -16,7 +17,7 @@ class SimpleClassifier:
         ])
 
         try:
-            self.model.load_weights('weight.h5')
+            self.model.load_weights(MODEL_FILENAME)
         except OSError:
             raise FileNotFoundError("no weight.h5 file")
 
