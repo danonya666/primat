@@ -35,7 +35,7 @@ def recognize_object(message: types.Message) -> None:
     picture = process_picture(message.photo)
     if settings.STAGE == 'dev':
         save_picture(picture)
-    predictions = classifier.predict(picture)
+    predictions = classifier.predict_class(picture)
     classes = sorted(predictions.items(), key=lambda item: item[1], reverse=True)
     prediction = classes[0][0]
     print("The prediction is %s" % prediction)
