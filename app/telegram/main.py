@@ -11,16 +11,10 @@ from . import replies
 bot = telebot.TeleBot(settings.BOT_TOKEN)
 
 
-def process_picture(photo: list) -> bytes:
+def process_picture(photo: list) -> str:
     file_id = photo[-1].file_id
     file = bot.get_file(file_id)
-    downloaded_file = bot.download_file(file.file_path)
-    return downloaded_file
-
-
-def save_picture(picture: bytes) -> None:
-    with open('last_picture.png', 'wb') as file:
-        file.write(picture)
+    return file.file_path
 
 
 @bot.message_handler(commands=['start', 'help'])
@@ -32,11 +26,9 @@ def help_handler(message: types.Message) -> None:
 @bot.message_handler(content_types=['photo'])
 def recognize_object(message: types.Message) -> None:
     print("%s sent a picture" % message.chat.id)
-    picture = process_picture(message.photo)
-    if settings.STAGE == 'dev':
-        save_picture(picture)
+    picture_url = process_picture(message.photo)
 
-    image = converter.convert_image(picture)
+    image = converter.convert_image(picture_url)
     predictions = classifier.predict_class(image)
     classes = sorted(predictions.items(), key=lambda item: item[1], reverse=True)
     prediction = classes[0][0]
