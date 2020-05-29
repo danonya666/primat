@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from typing import Dict
 
 from simple_classifier import SimpleClassifier
@@ -17,3 +18,6 @@ def predict(image: bytes) -> Dict[str, float]:
     result = {}
 
 
+=======
+from .main import predict_class
+>>>>>>> d90a4cdfd4694bcce80269865adf2e471ebf0021
