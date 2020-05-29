@@ -7,6 +7,7 @@ from tensorflow.python.keras.datasets import fashion_mnist
 
 from app import settings
 
+from app import settings
 
 class SimpleClassifier:
     def __init__(self):
@@ -26,8 +27,15 @@ class SimpleClassifier:
                            metrics=['accuracy'])
 
     def predict(self, img):
-        prediction = self.model.predict(img)
-        print('prediction: ', prediction)
+        prediction = self.model.predict(img)[0]
+        class_names = settings.CLASS_NAMES
+        result = {}
+        # mapping predictions with classnames
+        for i in range(len(prediction)):
+            result[class_names[i]] = prediction[i]
+
+        return result
+
 
 
 simple_classifier = SimpleClassifier()
@@ -37,4 +45,4 @@ test_images = test_images / 255.0
 
 img = (np.expand_dims(test_images[1], 0))
 
-simple_classifier.predict(img)
+print(simple_classifier.predict(img))

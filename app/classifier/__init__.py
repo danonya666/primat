@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 from typing import Dict
 
-from simple_classifier import SimpleClassifier
-from ..settings.dist import CLASS_NAMES
+from app.classifier.simple_classifier import SimpleClassifier
 
 simple_classifier = SimpleClassifier()
 
@@ -13,11 +11,5 @@ def predict(image: bytes) -> Dict[str, float]:
     :param image: binary image file stored in the RAM
     :return: mappings of {settings.CLASS_NAME: probability}
     """
-    predictions = simple_classifier.predict()
-    print(predictions)
-    result = {}
+    return simple_classifier.predict()
 
-
-=======
-from .main import predict_class
->>>>>>> d90a4cdfd4694bcce80269865adf2e471ebf0021
