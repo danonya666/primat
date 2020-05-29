@@ -1,4 +1,5 @@
 flask
+gunicorn
 jupyter
 keras
 matplotlib
