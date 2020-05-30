@@ -54,7 +54,7 @@ def recognize_object(message: types.Message) -> None:
         print("The object probably is %s" % prediction)
     shuffle(answers)
     reply = answers[0]
-    bot.send_message(message.chat.id, reply.format(prediction))
+    bot.send_message(message.chat.id, reply.format(prediction.lower()))
 
 
 @bot.message_handler(func=lambda message: True)
