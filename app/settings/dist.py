@@ -12,3 +12,4 @@ CLASS_NAMES = [
 ]
 CONFIDENCE_THRESHOLD = 0.8  # if classifier's confidence rate is above this number, we are confident
 UNCERTAINTY_THRESHOLD = 0.2  # if classifier's confidence rate is below this number, we are uncertain
+DEFAULT_IMAGE_PATH = "last_image.jpg"

@@ -4,5 +4,6 @@ jupyter
 keras
 matplotlib
 numpy
+pillow
 pyTelegramBotAPI
 tensorflow

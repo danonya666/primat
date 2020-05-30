@@ -1,3 +1,4 @@
+from pprint import pprint
 from random import shuffle
 
 import telebot
@@ -11,10 +12,17 @@ from . import replies
 bot = telebot.TeleBot(settings.BOT_TOKEN)
 
 
-def process_picture(photo: list) -> str:
+def save_picture(picture: bytes, filepath: str = settings.DEFAULT_IMAGE_PATH) -> str:
+    with open(filepath, 'wb') as file:
+        file.write(picture)
+        return filepath
+
+
+def process_picture(photo: list) -> bytes:
     file_id = photo[-1].file_id
     file = bot.get_file(file_id)
-    return file.file_path
+    downloaded_file = bot.download_file(file.file_path)
+    return downloaded_file
 
 
 @bot.message_handler(commands=['start', 'help'])
@@ -26,10 +34,12 @@ def help_handler(message: types.Message) -> None:
 @bot.message_handler(content_types=['photo'])
 def recognize_object(message: types.Message) -> None:
     print("%s sent a picture" % message.chat.id)
-    picture_url = process_picture(message.photo)
-
-    image = converter.convert_image(picture_url)
+    picture = process_picture(message.photo)
+    filepath = save_picture(picture)
+    image = converter.convert_image(filepath)
     predictions = classifier.predict_class(image)
+    for k, v in predictions.items():
+        print(f"{k}: %.5f" % v)
     classes = sorted(predictions.items(), key=lambda item: item[1], reverse=True)
     prediction = classes[0][0]
     print("The prediction is %s" % prediction)
