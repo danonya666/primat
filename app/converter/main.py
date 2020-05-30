@@ -10,7 +10,6 @@ def convert_image(picture_path: str = settings.DEFAULT_IMAGE_PATH) -> np.ndarray
     if settings.STAGE == 'dev':
         img.save('grey.png')
     img.close()
-    data = (np.expand_dims(data, 0))
-    for pixel in data:
-        pixel /= 255.0
+    data = np.expand_dims(data, 0)
+    data = np.array([np.array([1 - (pixel / 255.0) for pixel in row], float) for row in data])
     return data
