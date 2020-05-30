@@ -1,4 +1,3 @@
-from pprint import pprint
 from random import shuffle
 
 import telebot
@@ -25,10 +24,16 @@ def process_picture(photo: list) -> bytes:
     return downloaded_file
 
 
-@bot.message_handler(commands=['start', 'help'])
-def help_handler(message: types.Message) -> None:
+@bot.message_handler(commands=['start'])
+def start_handler(message: types.Message) -> None:
     print("%s: %s" % (message.chat.id, message.text))
     bot.send_message(message.chat.id, replies.START_REPLY.format(message.from_user.username))
+
+
+@bot.message_handler(commands=['help'])
+def start_handler(message: types.Message) -> None:
+    print("%s: %s" % (message.chat.id, message.text))
+    bot.send_message(message.chat.id, replies.HELP_REPLY)
 
 
 @bot.message_handler(content_types=['photo'])
@@ -60,4 +65,4 @@ def recognize_object(message: types.Message) -> None:
 @bot.message_handler(func=lambda message: True)
 def unknown_message(message: types.Message) -> None:
     print("%s: %s" % (message.chat.id, message.text))
-    bot.send_message(message.chat.id, replies.START_REPLY)
+    bot.send_message(message.chat.id, replies.HELP_REPLY)
